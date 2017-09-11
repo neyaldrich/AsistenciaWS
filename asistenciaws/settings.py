@@ -77,15 +77,24 @@ WSGI_APPLICATION = 'asistenciaws.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+# El formato del archivo de configuracion de la base es el siguiente:
+"""
+    [client]
+    database = dbname
+    user = user
+    password = password
+    port = port
+    default-character-set = utf8
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
             'read_default_file': '~/asistenciaDB.cnf',
+            # el archivo .cnf puede tener cualquier nombre y directorio
         },
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
