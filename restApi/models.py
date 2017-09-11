@@ -14,7 +14,6 @@ class Operador(models.Model):
     faceData = models.CharField(max_length=100, blank=True, default='')
 
     class Meta:
-
         ordering = ('apellido',)
 
 class Asistencia(models.Model):
@@ -23,5 +22,3 @@ class Asistencia(models.Model):
     longitud = models.CharField(max_length=100, blank=True, default='')
     fecha = models.DateTimeField(auto_now_add=True)
     isEntrada = models.BooleanField(default=True)
-
-
