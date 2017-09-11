@@ -17,7 +17,7 @@ class Operador(models.Model):
         ordering = ('apellido',)
 
 class Asistencia(models.Model):
-    idOperador = models.ForeignKeyField('Operador', related_name='', on_delete=models.CASCADE)
+    operador = models.ForeignKey('Operador', on_delete=models.CASCADE)
     latitud = models.CharField(max_length=100, blank=True, default='')
     longitud = models.CharField(max_length=100, blank=True, default='')
     fecha = models.DateTimeField(auto_now_add=True)

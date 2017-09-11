@@ -51,3 +51,5 @@ docs/_build/
 
 #VSCODE
 .vscode/
+
+*.sqlite3
