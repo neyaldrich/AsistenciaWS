@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'asistenciaws.wsgi.application'
     database = dbname
     user = user
     password = password
-    port = port
+    port = port 
     default-character-set = utf8
 """
 DATABASES = {
