@@ -1,83 +1,93 @@
-from rest_framework import status
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
 from restApi.models import Operador, Asistencia
 from restApi.serializers import OperadorSerializer, AsistenciaSerializer
+from django.http import Http404
+from rest_framework import status
+from rest_framework.decorators import APIView
+from rest_framework.response import Response
 
-@api_view(['GET', 'POST'])
-def operador_list(request):
+from rest_framework.decorators import api_view
+
+class OperadorList(APIView):
 
     # Lista todos los operadores
-    if request.method == 'GET':
+    def get(self,request, format=None):
         operadores = Operador.objects.all()
         serializer = OperadorSerializer(operadores, many=True)
         return Response(serializer.data)
 
     # Crea un nuevo operador
-    elif request.method == 'POST':
+    def post(self, request, format=None):
         serializer = OperadorSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def operador_detail(request, pk):
+class OperadorDetail(APIView):
     """
     Obtener, actualizar o eliminar un operador.
     """
 
-    try:
-        operador = Operador.objects.get(pk=pk)
-    except Operador.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+    def get_object(self, pk):
+        try:
+            return Operador.objects.get(pk=pk)
+        except Operador.DoesNotExist:
+            raise Http404
 
-    if request.method == 'GET':
+    def get(self, request, pk, format=None):
+        operador = self.get_object(pk)
         serializer = OperadorSerializer(operador)
         return Response(serializer.data)
 
-    elif request.method == 'PUT':
+    def put(self, request, pk,  format=None):
+        operador = self.get_object(pk)
         serializer = OperadorSerializer(operador, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
+    def delete(self, request, pk, format=None):
+        operador = self.get_object(pk)
         operador.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-@api_view(['GET', 'POST'])
-def asistencia_list(request):
+class AsistenciaList(APIView):
     """
     Lista todos las asistencias o crea una nueva.
     """
 
-    if request.method == 'GET':
+    def get(self, request, format=None):
         asistencias = Asistencia.objects.all()
         serializer = AsistenciaSerializer(asistencias, many=True)
         return Response(serializer.data)
 
-    elif request.method == 'POST':
+    def post(self, request, format=None):
         serializer = AsistenciaSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def asistencia_detail(request, pk):
+class AsistenciaDetail(APIView):
     """
     Obtener una asistencia.
     """
 
-    try:
-        asitencia = Asistencia.objects.get(pk=pk)
-    except Asistencia.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+    def get_object(self, pk):
+        try:
+            return Asistencia.objects.get(pk=pk)
+        except Asistencia.DoesNotExist:
+            return Http404
 
-    if request.method == 'GET':
+    def get(self, request, pk, format=None):
+        asistencia = self.get_object(pk)
         serializer = AsistenciaSerializer(asistencia)
         return Response(serializer.data)
 
     # No deberia ser posible modificar o eliminar una Asistencia desde la app.
+
+# REPORTES
+#
+# @api_view(['GET'])
+# def asistenciasOperador(request):

@@ -11,7 +11,7 @@ class Operador(models.Model):
     apellido = models.CharField(max_length=100, blank=True, default='')
     cedula = models.CharField(max_length=100, blank=True, default='')
     telefono = models.CharField(max_length=20, blank=True, default='')
-    faceData = models.CharField(max_length=100, blank=True, default='')
+    faceData = models.CharField(max_length=100, blank=True, default='none')
 
     class Meta:
         ordering = ('apellido',)
@@ -22,5 +22,6 @@ class Asistencia(models.Model):
     operador = models.ForeignKey('Operador', on_delete=models.CASCADE)
     latitud = models.CharField(max_length=100, blank=True, default='')
     longitud = models.CharField(max_length=100, blank=True, default='')
-    fecha = models.DateTimeField(auto_now_add=True)
+    fecha = models.DateField(auto_now_add=True)
+    hora = models.TimeField(auto_now_add=True)
     isEntrada = models.BooleanField(default=True)
