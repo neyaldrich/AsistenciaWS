@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 
-import dj_database_url
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'b0mf#dr254e(&*3z_)54=2h4@a9)k&&5dudri$xr6_$5kvco8h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -79,10 +77,23 @@ WSGI_APPLICATION = 'asistenciaws.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+# El formato del archivo de configuracion de la base es el siguiente:
+"""
+    [client]
+    database = dbname
+    user = user
+    password = password
+    port = port
+    default-character-set = utf8
+"""
 DATABASES = {
-  'default': dj_database_url.config(
-      default='sqlite:////{0}'.format(os.path.join(BASE_DIR, 'db.sqlite3'))
-  )
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {
+            'read_default_file': '~/asistenciaDB.cnf',
+            # el archivo .cnf puede tener cualquier nombre y directorio
+        },
+    }
 }
 
 # Password validation
@@ -122,7 +133,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 
-# STATIC_URL = '/static/'
-
-PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+STATIC_URL = '/static/'
