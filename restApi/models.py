@@ -11,7 +11,7 @@ class Operador(models.Model):
     apellido = models.CharField(max_length=100, blank=False, default='')
     cedula = models.CharField(max_length=100, blank=False, default='')
     telefono = models.CharField(max_length=20, blank=True, default='')
-    faceData = models.CharField(max_length=100, blank=True, default='none')
+    faceData = models.CharField(max_length=5000, blank=True, default='')
 
     class Meta:
         ordering = ('apellido',)
