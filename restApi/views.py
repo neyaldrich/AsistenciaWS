@@ -5,13 +5,12 @@ from rest_framework import status
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
 
-from rest_framework.parsers import JSONParser
 from datetime import datetime
 from openpyxl import Workbook
 import openpyxl.compat
+from openpyxl.styles import PatternFill, Border, Side, Alignment, Protection, Font, colors, Color
+from openpyxl.worksheet.properties import WorksheetProperties, PageSetupProperties
 from django.core.mail import EmailMessage
-
-
 
 # from django.utils.translation import activate, deactivate, to_locale, get_language
 
@@ -168,11 +167,29 @@ class EnviarReporte(APIView):
 
         """ Llenar el .xlsx """
 
+        # Setear un mejor ancho para las columnas
+        ws.column_dimensions['A'].width = 30
+        ws.column_dimensions['B'].width = 25
+        ws.column_dimensions['D'].width = 25
+        ws.column_dimensions['E'].width = 12
+        ws.column_dimensions['F'].width = 12
+
+        ws.row_dimensions[1].height = 20
+
+        title_font = Font(size=18, bold=True)
+        bold_font = Font(bold=True)
+
         ws['A1'] = "Reporte de asistencias"
+        ws['A1'].font = title_font
+        ws.merge_cells('A1:F1')
+        ws['A1'].alignment = Alignment(horizontal='center', vertical='center', wrap_text=True, shrink_to_fit=False)
+
         ws['A2'] = "Desde:"
+        ws['A2'].font = bold_font
         ws['B2'] = formatted_f_inicio
 
         ws['C2'] = "Hasta:"
+        ws['C2'].font = bold_font
         ws['D2'] = formatted_f_fin
 
         ws['A3'] = "Operador"
@@ -181,6 +198,14 @@ class EnviarReporte(APIView):
         ws['D3'] = "Tipo"
         ws['E3'] = "Latitud"
         ws['F3'] = "Longitud"
+
+        ws['A3'].font = bold_font
+        ws['B3'].font = bold_font
+        ws['C3'].font = bold_font
+        ws['D3'].font = bold_font
+        ws['E3'].font = bold_font
+        ws['F3'].font = bold_font
+
 
         # Construir una fila por cada asistencia
         for asistencia in asistencias:
@@ -195,6 +220,12 @@ class EnviarReporte(APIView):
 
             ws.append(row_content)
 
+        # wsprops = ws.sheet_properties
+        # wsprops.pageSetUpPr = PageSetupProperties(fitToPage=True, autoPageBreaks=False)
+
+        # ws.page_setup.fitToHeight = 1
+        # ws.page_setup.fitToWidth = 1
+
         workbook.save(filename = "reporte.xlsx")
 
         """ FIN DE LA GENERACION DEL .xlsx """
@@ -208,7 +239,7 @@ class EnviarReporte(APIView):
 
         email.attach_file("reporte.xlsx")
 
-        email.send()
+        # email.send()
 
         # Pruebas
         serializer = AsistenciaSerializer(asistencias, many=True)
