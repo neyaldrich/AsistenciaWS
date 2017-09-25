@@ -1,7 +1,7 @@
 USE AsistenciaDB;
 
-INSERT INTO restApi_operador (nombre, apellido, cedula, telefono, encodedFaceData)
-VALUES ("Neycker", "Aguayo", "1250010101", "0999010101",
+INSERT INTO restApi_operador (idOperador, nombre, apellido, cedula, telefono, encodedFaceData)
+VALUES (1, "Neycker", "Aguayo", "1250010101", "0999010101",
 "l5aZmJiXlJmTmZeTlpaWmJ2ck5iZk5qbk5iUmZWUmpKXl5iXk5eVlpGUmZOWlY+Vl5SWlpKNlZaY
 lJmOkpeSk5WSkZGSlZKRkJCTi46Wk5ORmI6Tk5GXlpSRkYqOkZOXkpCMkpWTjpGNkZGRjI+KkY2W
 jY2SkIuRiI6Ijo6LjYmKkIqJiIeOioqNh4yGiYyHipOIh4eHjomHh4OIiIWGg4OJhIOGgoWGgIKI
@@ -937,8 +937,8 @@ qq2tq66xsrGrr7a6tbi6uLu1tLGysLCwraqnpaWhpaCbopiamo+JXFFLTEw+TEdLR0RUsKDLyMjC
 vbHBu62urb/KwbjIu6u6qrScdUItKSMjHyAdHRsaGRsaGhgaGB4bGh0dHRgcGxsbHRscHR8gHCAi
 Ih0eHiAdJR0gIyIfIiEkJiYmJQ==");
 
-INSERT INTO restApi_operador (nombre, apellido, cedula, telefono, encodedFaceData)
-VALUES ("Julio", "Larrea", "1250020202", "0999020202",
+INSERT INTO restApi_operador (idOperador, nombre, apellido, cedula, telefono, encodedFaceData)
+VALUES (2, "Julio", "Larrea", "1250020202", "0999020202",
 "ycjHyszLzM7Izs7OzcrNx8vNzMjJy8nKysrGwb60sauqoKGcpJ+emJ+em6Ggop2hl52gm5qbnJqV
 mpiemZWcl5eVlZuUm5yfnpqhm6Wrq66vvr28wbi9v729ubu7ur+/uru8vLu6vcC7uby/u7y8uri4
 vLu/urq4u725try3uLm5tLWztrW0t7e2trS1s7Kys7OztLGzr7C0rbCysa2zr7G6rrKuq66trrKv
@@ -1874,8 +1874,8 @@ kJKXmpWYjop+eHt1b3BudXuBgomUj5mjpKyrpZmPhnuEfHB3foSNioyOjI6PlJmep6yytby/urGl
 mYeFfICEh4iQk5yoo6eopq2tqaWio56kpKSin5+hoKOpt7rKwsG3qZaUkZWTm5+lydXIrZ2YlJiZ
 jm9/eVdYf4V9foaDi5eyoZaAhA==");
 
-INSERT INTO restApi_operador (nombre, apellido, cedula, telefono, encodedFaceData)
-VALUES ("Karla", "Mejía", "1250030303", "0999030303",
+INSERT INTO restApi_operador (idOperador, nombre, apellido, cedula, telefono, encodedFaceData)
+VALUES (3, "Karla", "Mejía", "1250030303", "0999030303",
 "pKSiqqWnraipraepqbCoq6exraqtpaemn6GXhnhvfXWEhohxaWhVUUpERU1MNzYwMi4rKyYqLSwp
 NCwvKS0nJSooJCElIScrJiQiHyggKSImIB0mJyAoJCIqJCskJCInISUfHSchKSQaIR4jICMkHiIk
 HiUiHyUnKyUrIyYqKzA7TWNVP0VLUEBRXW99oaqssrW3trm1uLu3ubm7uby5u7q6v7+9u727vby/
@@ -2811,8 +2811,8 @@ HS0aGRomJCsgIiUdKSUxMx4qKjo3NTEtLS4yHBggJCYwMDxHQzIzJSQxIiomICYlGxwqISEoJCgz
 MDUrJx4sLz1CQ0BBRUFCNjk3b4STaHOEkpKio4V/ipyfiXKanIuRlYFpQzY1PSc3PEI8N0c+MSxC
 Rj1QYGZgXlo3Kx4nKS4kLC5FRA==");
 
-INSERT INTO restApi_operador (nombre, apellido, cedula, telefono, encodedFaceData)
-VALUES ("Elizabeth", "Suarez", "1250040404", "0999040404",
+INSERT INTO restApi_operador (idOperador, nombre, apellido, cedula, telefono, encodedFaceData)
+VALUES (4, "Elizabeth", "Suarez", "1250040404", "0999040404",
 "qa2jpKWio5mdmY6DcnBrZVVgRU1ZZm2GdHFzb09DPzc4Mi8qKCghLyUsJCggJiUmICMiJh8oIiIi
 IBsoJB8iHCIgHx8iHyUfHyMsKCUuKygwJy8rKyYmIyUyLCMnKy8lLCgoMC0mJCglJyMqKyMjMykp
 JTQsMTkwMCg2NDEyNjU3Nj5FTFhVfqizsbm8ucHAv8PDwr2+vLu9vr7BxcjFxcjKw8XLxsXJyMS/
@@ -3748,8 +3748,8 @@ b21TSzlWdGBbc1xqbnyHkI+FhXSNnYhrgoiJn6eLa0dGR01hraJ9jZ2msK6lj62YjKidjJSJr5iA
 v7Snv7etubWflJqBdKW/vLiOmn2mvLK7qay1vMC4w728tKW0urGttKKkr5WXonR9mHaOkJKgnJuV
 kWxmnYF8mJKXiY+Ef1VPTFVXag==");
 
-INSERT INTO restApi_operador (nombre, apellido, cedula, telefono, encodedFaceData)
-VALUES ("Paul", "Dominguez", "1250050505", "0999050505",
+INSERT INTO restApi_operador (idOperador, nombre, apellido, cedula, telefono, encodedFaceData)
+VALUES (5, "Paul", "Dominguez", "1250050505", "0999050505",
 "zMzQz8zSzc/Pzc7Qz9LO0c/RztDR0M/Rz9DQ0NHR0c3Qz9DRytHOztHPz9HOz8/RzszQ0c3MzM7R
 0svPy8zNz8zKzs7Kzc7PzsjNzcnOzMvOy8zOys7Ky8rMysnJyMzLyszLysrKycnJx8rJzMjLzMjJ
 ysnJyMfExMvKx8XDxsfHy8jHycbJy8PHy8bGy8vHyMjKysfGyMfIy8TGv8fFxMrIy8PDxsXJycnI
@@ -4685,8 +4685,8 @@ FRYUFRIYFhUWExQTFRMUEhMUFxUUExcRFxQTFhUVGBEVFBQTFBUVExcWExYaExgVFBcWGBIUFBQV
 FhQTFRQUFBMZFBMVExYUFRYVExUSFRcTFRISEhIUEBQVFhITFhASERUWFBMTFhUUFBESExIRFRMV
 FBIRExMVFRMVFBMTFBEVFRQVGg==");
 
-INSERT INTO restApi_operador (nombre, apellido, cedula, telefono, encodedFaceData)
-VALUES ("Susana", "Rodriguez", "1250060606", "0999060606",
+INSERT INTO restApi_operador (idOperador, nombre, apellido, cedula, telefono, encodedFaceData)
+VALUES (6, "Susana", "Rodriguez", "1250060606", "0999060606",
 "x8jLysTIzMrLys/Nzs7Ny83Sy9DR09HR0NPT0tbU0tbU1NbZ1dnb2d3d3tzf3+Df3t7g3eDh4+Hj
 4+Hl5ubn5+no6uro6+rr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr
 6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6uvp6urq5+bo6eTm4+Pl4eHi4uLg393e393e
@@ -5622,8 +5622,8 @@ ExUSExMWFhQRERMUFRQSExUTFBYSFRMUEhITFRIVFBIVFBcTFRMVEBIVFRMSEhURFhITEhQRFBQT
 FBUSFBITFREUEhQTEhQUFBUSEhQWExMUExMUFhQTExUVFRMVFhQVGBQXGBoaGB4rNTtIQEJLSU9V
 VV1SW1ZbW1JZYF9PWGBYXVhdZQ==");
 
-INSERT INTO restApi_operador (nombre, apellido, cedula, telefono, encodedFaceData)
-VALUES ("Yanira", "Campos", "1250070707", "0999070707",
+INSERT INTO restApi_operador (idOperador, nombre, apellido, cedula, telefono, encodedFaceData)
+VALUES (7, "Yanira", "Campos", "1250070707", "0999070707",
 "5ufm4+bm5uXl5OLi5+Xk5Obj4+jm5OTl5uTl5OPk5eXl5eXl5OLl5ebi5OHi4+Ti4uHh4uLj4uLi
 4eDh4uLg4OLe4ODf39/e3t3g4ODe397c3d7g3tzc3N3b2t3c29zc2tva29na19fb2tbZ2tja2tjY
 1NfV2dfV1tbT08/T09PP0s/SzM3Oz9LQ0M/S0NLPzs3Nzc7IysXGxcS5oqKitLaqscTKycrPzc3M
@@ -6559,8 +6559,8 @@ EhIUFRMVEhYUFBYTFBIUFBUWFBMTFRMTERMUEhESFRIVFhIUEhMVFRMTEhMUFxYSFRQUERQTExkS
 FBYWFBIVFBMSFxIUExMSFhUTEhQWERYUFxUVFRgXHRkdHiIsKC0rKSsoICQmFhoYFhIRFBQgV2dk
 JyEhJSMkKycoKTExMzYxNDc2MQ==");
 
-INSERT INTO restApi_operador (nombre, apellido, cedula, telefono, encodedFaceData)
-VALUES ("Yoshua", "Alban", "1250080808", "0999080808",
+INSERT INTO restApi_operador (idOperador, nombre, apellido, cedula, telefono, encodedFaceData)
+VALUES (8, "Yoshua", "Núñez", "1250080808", "0999080808",
 "gY2esszi6+vr7Yx5dXR1dnqBipm12evr66x/d3V1dHJ5e4CGmMPp3n96eXt/hpCesMnh6+vrqIyF
 iouSnsDq6+vTpJaQjoqJioeKiYmNkq2ZkpGVnrHg6+u/pZ+bmpubnqOptsq+rKuxvMzm6+vr2crK
 1+rr6+vr2M/Q1eXr6+vr697g6+vr6+vr4drc5evr6+jd3uHr6+vr6+vr6+vr6+vr4+Lr6+vdzMK7

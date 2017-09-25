@@ -7,6 +7,7 @@ class Admin(models.Model):
     password = models.CharField(max_length=100, blank=True, default='')
 
 class Operador(models.Model):
+    idOperador = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100, blank=False, default='')
     apellido = models.CharField(max_length=100, blank=False, default='')
     cedula = models.CharField(max_length=10, blank=False, default='')
@@ -14,7 +15,7 @@ class Operador(models.Model):
     encodedFaceData = models.TextField(blank=True, null=True, default="")
 
 class Asistencia(models.Model):
-    operador = models.ForeignKey(Operador, on_delete=models.CASCADE)
+    idOperador = models.ForeignKey(Operador, on_delete=models.CASCADE)
     latitud = models.CharField(max_length=100, blank=True, default='')
     longitud = models.CharField(max_length=100, blank=True, default='')
     fecha = models.DateField(auto_now_add=True)

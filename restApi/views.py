@@ -209,7 +209,7 @@ class EnviarReporte(APIView):
 
         # Construir una fila por cada asistencia
         for asistencia in asistencias:
-            operador = Operador.objects.get(pk = asistencia.operador.id)
+            operador = Operador.objects.get(pk = asistencia.idOperador.idOperador)
 
             row_content = [ "{0} {1}".format(operador.nombre, operador.apellido),
                             asistencia.fecha,
