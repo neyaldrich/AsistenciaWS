@@ -220,12 +220,6 @@ class EnviarReporte(APIView):
 
             ws.append(row_content)
 
-        # wsprops = ws.sheet_properties
-        # wsprops.pageSetUpPr = PageSetupProperties(fitToPage=True, autoPageBreaks=False)
-
-        # ws.page_setup.fitToHeight = 1
-        # ws.page_setup.fitToWidth = 1
-
         workbook.save(filename = "reporte.xlsx")
 
         """ FIN DE LA GENERACION DEL .xlsx """
@@ -239,13 +233,14 @@ class EnviarReporte(APIView):
 
         email.attach_file("reporte.xlsx")
 
-        # email.send()
+        email.send()
 
+        """ FIN DE ENVIO DE EMAIL"""
         # Pruebas
-        serializer = AsistenciaSerializer(asistencias, many=True)
+        # serializer = AsistenciaSerializer(asistencias, many=True)
         # print(serializer)
         # END Pruebas
 
-        return Response(serializer.data)
+        # return Response(serializer.data)
 
-        # return Response()
+        return Response()
