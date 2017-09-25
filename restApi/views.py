@@ -1,11 +1,19 @@
-from restApi.models import Operador, Asistencia
-from restApi.serializers import OperadorSerializer, AsistenciaSerializer
+from restApi.models import Operador, Asistencia, Administrador
+from restApi.serializers import OperadorSerializer, AsistenciaSerializer, AdministradorSerializer
 from django.http import Http404
 from rest_framework import status
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
 
 from rest_framework.decorators import api_view
+
+class AdministradorList(APIView):
+
+    # Lista todos los admins
+    def get(self,request, format=None):
+        administradores = Administrador.objects.all()
+        serializer = AdministradorSerializer(administradores, many=True)
+        return Response(serializer.data)
 
 class OperadorList(APIView):
 

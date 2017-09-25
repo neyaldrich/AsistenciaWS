@@ -25,7 +25,7 @@ SECRET_KEY = 'b0mf#dr254e(&*3z_)54=2h4@a9)k&&5dudri$xr6_$5kvco8h'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'asistenciaws.wsgi.application'
     database = dbname
     user = user
     password = password
-    port = port 
+    port = port
     default-character-set = utf8
 """
 DATABASES = {
@@ -131,5 +131,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
+
 
 STATIC_URL = '/static/'

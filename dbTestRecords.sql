@@ -1,5 +1,18 @@
 USE AsistenciaDB;
 
+-- Insercion de Administradores
+
+INSERT INTO restApi_administrador (username, password)
+VALUES ("admin1", "1111");
+
+INSERT INTO restApi_administrador (username, password)
+VALUES ("admin2", "2222");
+
+INSERT INTO restApi_administrador (username, password)
+VALUES ("admin3", "3333");
+
+-- Insercion de Operadores
+
 INSERT INTO restApi_operador (nombre, apellido, cedula, telefono, faceData)
 VALUES ("Fernando", "Mejía", "0952417854", "0980504030", "none");
 
