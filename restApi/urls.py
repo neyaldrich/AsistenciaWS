@@ -7,7 +7,8 @@ urlpatterns = [
     url(r'^operadores/(?P<pk>[0-9]+)/$', views.OperadorDetail.as_view()),
     url(r'^asistencias/$', views.AsistenciaList.as_view()),
     url(r'^asistencias/(?P<pk>[0-9]+)/$', views.AsistenciaDetail.as_view()),
-    url(r'^admins/$', views.AdministradorList.as_view()),
+    url(r'^admins/$', views.AdminList.as_view()),
+    url(r'^enviar_reporte/', views.EnviarReporte.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

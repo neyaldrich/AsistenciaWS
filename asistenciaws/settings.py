@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'restApi'
 ]
-
 # AUTH_USER_MODEL = 'users.User'
 
 MIDDLEWARE = [
@@ -90,7 +89,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
-            'read_default_file': '~/asistenciaDB.cnf',
+            'read_default_file': '~/.virtualenvs/asistenciaEnv/asistenciaDB.cnf',
             # el archivo .cnf puede tener cualquier nombre y directorio
         },
     }

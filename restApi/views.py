@@ -1,19 +1,28 @@
-from restApi.models import Operador, Asistencia, Administrador
-from restApi.serializers import OperadorSerializer, AsistenciaSerializer, AdministradorSerializer
+from restApi.models import Operador, Asistencia, Admin
+from restApi.serializers import OperadorSerializer, AsistenciaSerializer, AdminSerializer
 from django.http import Http404
 from rest_framework import status
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
 
-from rest_framework.decorators import api_view
+from rest_framework.parsers import JSONParser
+from datetime import datetime
+from openpyxl import Workbook
+import openpyxl.compat
+from django.core.mail import EmailMessage
 
-class AdministradorList(APIView):
 
-    # Lista todos los admins
+
+# from django.utils.translation import activate, deactivate, to_locale, get_language
+
+class AdminList(APIView):
+
+    # Lista todos los operadores
     def get(self,request, format=None):
-        administradores = Administrador.objects.all()
-        serializer = AdministradorSerializer(administradores, many=True)
+        admins = Admin.objects.all()
+        serializer = AdminSerializer(admins, many=True)
         return Response(serializer.data)
+
 
 class OperadorList(APIView):
 
@@ -30,6 +39,7 @@ class OperadorList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class OperadorDetail(APIView):
     """
@@ -60,6 +70,7 @@ class OperadorDetail(APIView):
         operador.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
 class AsistenciaList(APIView):
     """
     Lista todos las asistencias o crea una nueva.
@@ -76,6 +87,7 @@ class AsistenciaList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class AsistenciaDetail(APIView):
     """
@@ -95,7 +107,114 @@ class AsistenciaDetail(APIView):
 
     # No deberia ser posible modificar o eliminar una Asistencia desde la app.
 
-# REPORTES
-#
-# @api_view(['GET'])
-# def asistenciasOperador(request):
+""" REPORTES """
+
+class EnviarReporte(APIView):
+
+    """ Formato del Json que se recibe:
+    {
+        "fechaInicio" : "YYYY-MM-DD",
+        "fechaFin" : "YYYY-MM-DD",
+        "destinatarios" : ["email1", "email2", ... ]
+    }
+    """
+    def post(self, request):
+
+        """
+        1. Obtener los datos del request.data instanciar objetos de sus tipos:
+                fechaInicio, fechaFin y destinatarios
+        2. Validar los datos
+        3. Obtener todas las asistencias que existan entre la fecha de inicio y fin
+        4. Generar un archivo .xlsx y poblarlo con los datos de las asistencias
+        5. Instanciar un EmailClass de Django para construir los emails a enviar
+
+        """
+        # Parsear el Json obtenido del POST.
+        json = request.data
+
+
+        # Strings
+        fechaInicio = json["fechaInicio"]
+        fechaFin = json["fechaFin"]
+
+        # List de Strings
+        destinatarios = json["destinatarios"]
+
+        # Consulta a la base. Obtener las asistencias que caen en el intervalo de interes
+        asistencias = Asistencia.objects.filter(fecha__gte = fechaInicio).filter(fecha__lte = fechaFin)
+
+        """ GENERAR EL .xlsx """
+
+        workbook = Workbook()
+
+        # Seleccionar la Hoja principal
+        ws = workbook.active
+        ws.title = "Reporte de Asistencias"     # Settear un titulo a la hoja
+
+        # datetime objects
+        fecha_inicio = datetime.strptime(fechaInicio, '%Y-%m-%d')
+        fecha_fin = datetime.strptime(fechaFin, '%Y-%m-%d')
+
+        # Hack para tener los meses en español porque el datetime.strftime me los bota en ingles
+        # Intente cambiarle el locale en todos lados pero no funcionaba xD
+        mes = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
+
+        # Strings de fechas con formato mas legible para humanos
+        formatted_f_inicio = fecha_inicio.strftime('%d de {0} del %Y'.format(mes[fecha_inicio.month - 1]))
+        # -1 porque septiembre (mes 9) esta en el indice 8 del array mes
+        formatted_f_fin = fecha_fin.strftime('%d de {0} del %Y'.format(mes[fecha_fin.month - 1]))
+
+        print("Reporte de asistencias desde el {0} hasta el {1}".format(formatted_f_inicio, formatted_f_fin))
+
+        """ Llenar el .xlsx """
+
+        ws['A1'] = "Reporte de asistencias"
+        ws['A2'] = "Desde:"
+        ws['B2'] = formatted_f_inicio
+
+        ws['C2'] = "Hasta:"
+        ws['D2'] = formatted_f_fin
+
+        ws['A3'] = "Operador"
+        ws['B3'] = "Fecha"
+        ws['C3'] = "Hora"
+        ws['D3'] = "Tipo"
+        ws['E3'] = "Latitud"
+        ws['F3'] = "Longitud"
+
+        # Construir una fila por cada asistencia
+        for asistencia in asistencias:
+            operador = Operador.objects.get(pk = asistencia.operador.id)
+
+            row_content = [ "{0} {1}".format(operador.nombre, operador.apellido),
+                            asistencia.fecha,
+                            asistencia.hora,
+                            "Entrada" if asistencia.isEntrada else "Salida",
+                            asistencia.latitud,
+                            asistencia.longitud ]
+
+            ws.append(row_content)
+
+        # workbook.save(filename = "reporte.xlsx")
+
+        """ FIN DE LA GENERACION DEL .xlsx """
+
+        """ ENVIAR EL REPORTE POR EMAIL """
+
+        email = EmailMessage(subject = "Reporte de Asistencias",
+                            body = "Reporte generado automáticamente",
+                            from_email = "admin@empresa.com",
+                            to = destinatarios,
+                            attachments = [("reporte.xlsx", workbook, "text/xlsx")]
+                            )
+
+        email.send(fail_silently=True)
+
+        # Pruebas
+        serializer = AsistenciaSerializer(asistencias, many=True)
+        # print(serializer)
+        # END Pruebas
+
+        return Response(serializer.data)
+
+        # return Response()
