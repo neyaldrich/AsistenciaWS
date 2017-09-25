@@ -10,21 +10,8 @@ INSERT INTO restApi_admin (username, password)
 VALUES ("admin3", "3333");
 
 -- Insercion de Operadores
+-- Ejecutar dbAddFacedata.sql
 
-INSERT INTO restApi_operador (nombre, apellido, cedula, telefono, encodedFaceData)
-VALUES ("Fernando", "Mejía", "0952417854", "0980504030", "none");
-
-INSERT INTO restApi_operador (nombre, apellido, cedula, telefono)
-VALUES ("Enrique", "Torres", "1247836214", "0981514131");
-
-INSERT INTO restApi_operador (nombre, apellido, cedula, telefono)
-VALUES ("Sara", "Flores", "1547836214", "0982524232");
-
-INSERT INTO restApi_operador (nombre, apellido, cedula, telefono)
-VALUES ("Jessica", "Donoso", "1547836214", "0983534333");
-
-INSERT INTO restApi_operador (nombre, apellido, cedula, telefono)
-VALUES ("Hector", "Andrade", "1547833214", "0984544434");
 
 -- Ingresos y salidas del Operador 1, en la semana del 4 al 8 de Septiembre
 
