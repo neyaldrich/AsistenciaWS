@@ -195,7 +195,7 @@ class EnviarReporte(APIView):
 
             ws.append(row_content)
 
-        # workbook.save(filename = "reporte.xlsx")
+        workbook.save(filename = "reporte.xlsx")
 
         """ FIN DE LA GENERACION DEL .xlsx """
 
@@ -203,12 +203,12 @@ class EnviarReporte(APIView):
 
         email = EmailMessage(subject = "Reporte de Asistencias",
                             body = "Reporte generado automáticamente",
-                            from_email = "admin@empresa.com",
                             to = destinatarios,
-                            attachments = [("reporte.xlsx", workbook, "text/xlsx")]
                             )
 
-        email.send(fail_silently=True)
+        email.attach_file("reporte.xlsx")
+
+        email.send()
 
         # Pruebas
         serializer = AsistenciaSerializer(asistencias, many=True)
