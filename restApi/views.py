@@ -242,12 +242,12 @@ class EnviarReporte(APIView):
 
         """ FIN DE ENVIO DE EMAIL"""
         # Pruebas
-        serializer = AsistenciaSerializer(asistencias, many=True)
+        # serializer = AsistenciaSerializer(asistencias, many=True)
         # print(serializer)
         # END Pruebas
 
-        return Response(serializer.data)
+        # return Response(serializer.data)
 
-        # return Response()
+        return Response()
 
         # return Response()

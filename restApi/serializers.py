@@ -14,4 +14,6 @@ class OperadorSerializer(serializers.ModelSerializer):
 class AsistenciaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Asistencia
+
         fields = ('id', 'idOperador', 'latitud', 'longitud', 'fecha', 'hora', 'isEntrada')
+        hora = serializers.TimeField(format="%H:%M")
