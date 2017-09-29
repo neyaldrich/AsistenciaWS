@@ -33,7 +33,7 @@ class OperadorList(APIView):
 
     # Crea un nuevo operador
     def post(self, request, format=None):
-        serializer = OperadorSerializer(data=request.data)
+        serializer = OperadorSerializer(data=request.data, many=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -81,7 +81,7 @@ class AsistenciaList(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = AsistenciaSerializer(data=request.data)
+        serializer = AsistenciaSerializer(data=request.data, many=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -209,7 +209,7 @@ class EnviarReporte(APIView):
 
         # Construir una fila por cada asistencia
         for asistencia in asistencias:
-            operador = Operador.objects.get(pk = asistencia.operador.id)
+            operador = Operador.objects.get(pk = asistencia.idOperador.idOperador)
 
             row_content = [ "{0} {1}".format(operador.nombre, operador.apellido),
                             asistencia.fecha,
@@ -237,10 +237,10 @@ class EnviarReporte(APIView):
 
         """ FIN DE ENVIO DE EMAIL"""
         # Pruebas
-        # serializer = AsistenciaSerializer(asistencias, many=True)
+        serializer = AsistenciaSerializer(asistencias, many=True)
         # print(serializer)
         # END Pruebas
 
-        # return Response(serializer.data)
+        return Response(serializer.data)
 
-        return Response()
+        # return Response()

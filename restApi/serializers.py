@@ -9,9 +9,9 @@ class AdminSerializer(serializers.ModelSerializer):
 class OperadorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Operador
-        fields = ('id', 'nombre', 'apellido', 'cedula', 'telefono', 'encodedFaceData')
+        fields = ('idOperador', 'nombre', 'apellido', 'cedula', 'telefono', 'encodedFaceData')
 
 class AsistenciaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Asistencia
-        fields = ('operador', 'latitud', 'longitud', 'fecha', 'hora', 'isEntrada')
+        fields = ('id', 'idOperador', 'latitud', 'longitud', 'fecha', 'hora', 'isEntrada')
