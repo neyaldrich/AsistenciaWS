@@ -129,7 +129,10 @@ class EnviarReporte(APIView):
 
         """
         # Parsear el Json obtenido del POST.
+        print(request.body)
+
         json = request.data
+
 
 
         # Strings
@@ -138,6 +141,7 @@ class EnviarReporte(APIView):
 
         # List de Strings
         destinatarios = json["destinatarios"]
+        print(destinatarios)
 
         # Consulta a la base. Obtener las asistencias que caen en el intervalo de interes
         asistencias = Asistencia.objects.filter(fecha__gte = fechaInicio).filter(fecha__lte = fechaFin)
@@ -209,6 +213,7 @@ class EnviarReporte(APIView):
 
         # Construir una fila por cada asistencia
         for asistencia in asistencias:
+            # idOperador.idOperador - No es mi culpa xD
             operador = Operador.objects.get(pk = asistencia.idOperador.idOperador)
 
             row_content = [ "{0} {1}".format(operador.nombre, operador.apellido),
@@ -242,5 +247,7 @@ class EnviarReporte(APIView):
         # END Pruebas
 
         return Response(serializer.data)
+
+        # return Response()
 
         # return Response()
