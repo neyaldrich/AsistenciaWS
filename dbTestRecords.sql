@@ -10,6 +10,8 @@ INSERT INTO restApi_admin (username, password)
 VALUES ("admin3", "3333");
 
 -- Insercion de Operadores
+-- Ejecutar dbAddFacedata.sql
+
 
 -- Ingresos y salidas del Operador 1, en la semana del 4 al 8 de Septiembre
 

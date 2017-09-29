@@ -26,7 +26,7 @@ SECRET_KEY = 'b0mf#dr254e(&*3z_)54=2h4@a9)k&&5dudri$xr6_$5kvco8h'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -90,7 +90,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
-            'read_default_file': '~/.virtualenvs/asistenciaEnv/asistenciaDB.cnf',
+            'read_default_file': '~/asistenciaDB.cnf',
             # el archivo .cnf puede tener cualquier nombre y directorio
         },
     }
