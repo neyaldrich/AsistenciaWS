@@ -1,4 +1,5 @@
 from django.db import models
+from rest_framework import serializers
 
 # Create your models here.
 
@@ -12,7 +13,12 @@ class Operador(models.Model):
     apellido = models.CharField(max_length=100, blank=False, default='')
     cedula = models.CharField(max_length=10, blank=False, default='')
     telefono = models.CharField(max_length=10, blank=True, default='')
-    encodedFaceData = models.TextField(blank=True, null=True, default="")
+    foto1 = models.TextField(blank=True, null=True, default="")
+    foto2 = models.TextField(blank=True, null=True, default="")
+    foto3 = models.TextField(blank=True, null=True, default="")
+    foto4 = models.TextField(blank=True, null=True, default="")
+    foto5 = models.TextField(blank=True, null=True, default="")
+
 
 class Asistencia(models.Model):
     idOperador = models.ForeignKey(Operador, on_delete=models.CASCADE)
