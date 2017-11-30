@@ -48,6 +48,14 @@ class Migration(migrations.Migration):
                 ('foto5', models.TextField(blank=True, default='', null=True)),
             ],
         ),
+
+	migrations.CreateModel(
+            name='TipoUsuario',
+            fields=[
+                ('idTipoUsuario', models.AutoField(primary_key=True)),
+                ('nombre', models.CharField(default='', max_length=100)),
+            ],
+        ),
         migrations.AddField(
             model_name='asistencia',
             name='idOperador',

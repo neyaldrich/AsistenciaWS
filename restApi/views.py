@@ -1,5 +1,5 @@
-from restApi.models import Operador, Asistencia, Admin
-from restApi.serializers import OperadorSerializer, AsistenciaSerializer, AdminSerializer
+from restApi.models import Operador, Asistencia, Admin, TipoUsuario
+from restApi.serializers import OperadorSerializer, AsistenciaSerializer, AdminSerializer, TipoUsuarioSerializer
 from django.http import Http404
 from rest_framework import status
 from rest_framework.decorators import APIView
@@ -242,3 +242,49 @@ class EnviarReporte(APIView):
         return Response()
 
         # return Response()
+
+class TipoUsuarioList(APIView):
+
+    # Lista todos los TipoUsuario
+    def get(self,request, format=None):
+        tipoUsuario = TipoUsuario.objects.all()
+        serializer = TipoUsuarioSerializer(tipoUsuario, many=True)
+        return Response(serializer.data)
+
+    # Crea un nuevo TipoUsuario
+    def post(self, request, format=None):
+        serializer = TipoUsuarioSerializer(data=request.data, many=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class TipoUsuarioDetail(APIView):
+    """
+    Obtener, actualizar o eliminar un TipoUsuario.
+    """
+
+    def get_object(self, pk):
+        try:
+            return TipoUsuario.objects.get(pk=pk)
+        except Operador.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        tipoUsuario = self.get_object(pk)
+        serializer = TipoUsuarioSerializer(tipoUsuario)
+        return Response(serializer.data)
+
+    def put(self, request, pk,  format=None):
+        tipoUsuario = self.get_object(pk)
+        serializer = TipoUsuarioSerializer(tipoUsuario, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        tipoUsuario = self.get_object(pk)
+        tipoUsuario.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

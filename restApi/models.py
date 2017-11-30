@@ -18,6 +18,7 @@ class Operador(models.Model):
     foto3 = models.TextField(blank=True, null=True, default="")
     foto4 = models.TextField(blank=True, null=True, default="")
     foto5 = models.TextField(blank=True, null=True, default="")
+    estado = models.CharField(max_length=3, blank=True, default='')
 
 
 class Asistencia(models.Model):
@@ -27,3 +28,9 @@ class Asistencia(models.Model):
     fecha = models.DateField(auto_now_add=False)
     hora = models.TimeField(auto_now_add=False)
     isEntrada = models.BooleanField(default=True)
+
+
+class TipoUsuario(models.Model):
+    idTipoUsuario = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=100, blank=False, default='')
+    estado = models.CharField(max_length=3, blank=False, default='')
