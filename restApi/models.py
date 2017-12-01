@@ -3,6 +3,11 @@ from rest_framework import serializers
 
 # Create your models here.
 
+class TipoUsuario(models.Model):
+    idTipoUsuario = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=100, blank=False, default='')
+    estado = models.CharField(max_length=3, blank=False, default='')
+
 class Admin(models.Model):
     username = models.CharField(max_length=100, blank=True, default='')
     password = models.CharField(max_length=100, blank=True, default='')
@@ -19,6 +24,8 @@ class Operador(models.Model):
     foto4 = models.TextField(blank=True, null=True, default="")
     foto5 = models.TextField(blank=True, null=True, default="")
     estado = models.CharField(max_length=3, blank=True, default='')
+    idTipoUsuario = models.ForeignKey(TipoUsuario, on_delete=models.CASCADE,null=True, default="",db_column='idTipoUsuario')	
+
 
 
 class Asistencia(models.Model):
@@ -30,7 +37,4 @@ class Asistencia(models.Model):
     isEntrada = models.BooleanField(default=True)
 
 
-class TipoUsuario(models.Model):
-    idTipoUsuario = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=100, blank=False, default='')
-    estado = models.CharField(max_length=3, blank=False, default='')
+

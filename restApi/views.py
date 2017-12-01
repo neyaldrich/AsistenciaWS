@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from restApi.models import Operador, Asistencia, Admin, TipoUsuario
 from restApi.serializers import OperadorSerializer, AsistenciaSerializer, AdminSerializer, TipoUsuarioSerializer
 from django.http import Http404
@@ -32,9 +33,6 @@ class OperadorList(APIView):
 
 
 class OperadorDetail(APIView):
-    """
-    Obtener, actualizar o eliminar un operador.
-    """
 
     def get_object(self, pk):
         try:
@@ -62,9 +60,6 @@ class OperadorDetail(APIView):
 
 
 class AsistenciaList(APIView):
-    """
-    Lista todos las asistencias o crea una nueva.
-    """
 
     def get(self, request, format=None):
         asistencias = Asistencia.objects.all()
@@ -80,9 +75,6 @@ class AsistenciaList(APIView):
 
 
 class AsistenciaDetail(APIView):
-    """
-    Obtener una asistencia.
-    """
 
     def get_object(self, pk):
         try:
@@ -97,28 +89,11 @@ class AsistenciaDetail(APIView):
 
     # No deberia ser posible modificar o eliminar una Asistencia desde la app.
 
-""" REPORTES """
 
 class EnviarReporte(APIView):
 
-    """ Formato del Json que se recibe:
-    {
-        "fechaInicio" : "YYYY-MM-DD",
-        "fechaFin" : "YYYY-MM-DD",
-        "destinatarios" : ["email1", "email2", ... ]
-    }
-    """
     def post(self, request):
 
-        """
-        1. Obtener los datos del request.data instanciar objetos de sus tipos:
-                fechaInicio, fechaFin y destinatarios
-        2. Validar los datos
-        3. Obtener todas las asistencias que existan entre la fecha de inicio y fin
-        4. Generar un archivo .xlsx y poblarlo con los datos de las asistencias
-        5. Instanciar un EmailClass de Django para construir los emails a enviar
-
-        """
         # Parsear el Json obtenido del POST.
         print(request.body)
 
@@ -137,19 +112,18 @@ class EnviarReporte(APIView):
         # Consulta a la base. Obtener las asistencias que caen en el intervalo de interes
         asistencias = Asistencia.objects.filter(fecha__gte = fechaInicio).filter(fecha__lte = fechaFin)
 
-        """ GENERAR EL .xlsx """
-
         workbook = Workbook()
 
         # Seleccionar la Hoja principal
         ws = workbook.active
-        ws.title = "Reporte de Asistencias"     # Settear un titulo a la hoja
+        ws.title = "Reporte de Asistencias"     
+        # Settear un titulo a la hoja
 
         # datetime objects
         fecha_inicio = datetime.strptime(fechaInicio, '%Y-%m-%d')
         fecha_fin = datetime.strptime(fechaFin, '%Y-%m-%d')
 
-        # Hack para tener los meses en español porque el datetime.strftime me los bota en ingles
+
         # Intente cambiarle el locale en todos lados pero no funcionaba xD
         mes = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
 
@@ -160,7 +134,6 @@ class EnviarReporte(APIView):
 
         print("Reporte de asistencias desde el {0} hasta el {1}".format(formatted_f_inicio, formatted_f_fin))
 
-        """ Llenar el .xlsx """
 
         # Setear un mejor ancho para las columnas
         ws.column_dimensions['A'].width = 30
@@ -218,40 +191,22 @@ class EnviarReporte(APIView):
 
         workbook.save(filename = "reporte.xlsx")
 
-        """ FIN DE LA GENERACION DEL .xlsx """
 
-        """ ENVIAR EL REPORTE POR EMAIL """
-
-        email = EmailMessage(subject = "Reporte de Asistencias",
-                            body = "Reporte generado automáticamente",
-                            to = destinatarios,
-                            )
+        email = EmailMessage(subject = "Reporte de Asistencias",body = "Reporte generado automáticamente",to = destinatarios)
 
         email.attach_file("reporte.xlsx")
 
         email.send()
 
-        """ FIN DE ENVIO DE EMAIL"""
-        # Pruebas
-        # serializer = AsistenciaSerializer(asistencias, many=True)
-        # print(serializer)
-        # END Pruebas
-
-        # return Response(serializer.data)
-
         return Response()
-
-        # return Response()
 
 class TipoUsuarioList(APIView):
 
-    # Lista todos los TipoUsuario
     def get(self,request, format=None):
         tipoUsuario = TipoUsuario.objects.all()
         serializer = TipoUsuarioSerializer(tipoUsuario, many=True)
         return Response(serializer.data)
 
-    # Crea un nuevo TipoUsuario
     def post(self, request, format=None):
         serializer = TipoUsuarioSerializer(data=request.data, many=True)
         if serializer.is_valid():
@@ -261,9 +216,6 @@ class TipoUsuarioList(APIView):
 
 
 class TipoUsuarioDetail(APIView):
-    """
-    Obtener, actualizar o eliminar un TipoUsuario.
-    """
 
     def get_object(self, pk):
         try:

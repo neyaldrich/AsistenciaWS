@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from restApi.models import Operador, Asistencia, Admin
 from restApi.serializers import OperadorSerializer, AsistenciaSerializer, AdminSerializer
 from django.http import Http404

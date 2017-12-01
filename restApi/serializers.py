@@ -9,7 +9,7 @@ class AdminSerializer(serializers.ModelSerializer):
 class OperadorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Operador
-        fields = ('idOperador', 'nombre', 'apellido', 'cedula', 'telefono', 'foto1', 'foto2', 'foto3', 'foto4', 'foto5','estado')
+        fields = ('idOperador', 'nombre', 'apellido', 'cedula', 'telefono', 'foto1', 'foto2', 'foto3', 'foto4', 'foto5','estado','idTipoUsuario')
 
 class AsistenciaSerializer(serializers.ModelSerializer):
     class Meta:
