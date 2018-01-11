@@ -8,6 +8,11 @@ class TipoUsuario(models.Model):
     nombre = models.CharField(max_length=100, blank=False, default='')
     estado = models.CharField(max_length=3, blank=False, default='')
 
+class Proyecto(models.Model):
+    idProyecto = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=100, blank=False, default='')
+    estado = models.CharField(max_length=3, blank=False, default='')
+
 class Admin(models.Model):
     username = models.CharField(max_length=100, blank=True, default='')
     password = models.CharField(max_length=100, blank=True, default='')
@@ -25,6 +30,13 @@ class Operador(models.Model):
     foto5 = models.TextField(blank=True, null=True, default="")
     estado = models.CharField(max_length=3, blank=True, default='')
     idTipoUsuario = models.ForeignKey(TipoUsuario, on_delete=models.CASCADE,null=True, default="",db_column='idTipoUsuario')	
+
+
+class ProyectoOperador(models.Model):
+    idProyectoOperador = models.AutoField(primary_key=True)
+    idProyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE,null=True, default="",db_column='idProyecto')	
+    idOperador = models.ForeignKey(Operador, on_delete=models.CASCADE,null=True, default="",db_column='idOperador')	
+    estado = models.CharField(max_length=3, blank=False, default='')
 
 
 

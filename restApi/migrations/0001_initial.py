@@ -58,6 +58,16 @@ class Migration(migrations.Migration):
                 ('estado', models.CharField(default='', max_length=3)),
             ],
         ),
+
+        migrations.CreateModel(
+            name='Proyecto',
+            fields=[
+                ('idProyecto', models.AutoField(primary_key=True)),
+                ('nombre', models.CharField(default='', max_length=100)),
+                ('estado', models.CharField(default='', max_length=3)),
+            ],
+        ),
+
         migrations.AddField(
             model_name='asistencia',
             name='idOperador',
@@ -68,5 +78,15 @@ class Migration(migrations.Migration):
             model_name='operador',
             name='idTipoUsuario',
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='restApi.TipoUsuario',db_column='idTipoUsuario'),
+        ),
+
+        migrations.CreateModel(
+            name='ProyectoOperador',
+            fields=[
+                ('idProyectoOperador', models.AutoField(primary_key=True)),
+                ('idProyecto', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='restApi.Proyecto',db_column='idProyecto')),
+                ('idOperador', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='restApi.Operador',db_column='idOperador')),
+                ('estado', models.CharField(default='', max_length=3)),
+            ],
         ),
     ]
